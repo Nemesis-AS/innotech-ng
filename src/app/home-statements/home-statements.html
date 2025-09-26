@@ -1,0 +1,121 @@
+<section class="py-24 px-4 bg-gradient-to-b from-background/50 to-background">
+  <div class="max-w-6xl mx-auto text-center mb-16">
+    <h2 class="text-4xl md:text-6xl font-bold gradient-text mb-4">Problem Statement Categories</h2>
+    <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+      Explore diverse categories designed to spark innovation, solve real-world problems, and shape
+      the future.
+    </p>
+  </div>
+
+  <p-dialog
+    header="Problem Statement & Rubricks"
+    [modal]="true"
+    [(visible)]="visible"
+    class="overflow-y-auto w-full"
+  >
+    <!-- [style]="{ width: '25rem' }" -->
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <h4 class="text-md font-semibold text-neon-cyan mb-3">Problem Statements</h4>
+
+        <div class="flex flex-col gap-2 divide-y divide-white/50">
+          @for (item of categories[selectedIdx].points; track $index) {
+            <div>{{ item }}</div>
+            }
+        </div>
+
+        <!-- <div
+          class="problem-list text-left text-sm space-y-2 transition-all duration-500 overflow-hidden w-full"
+        >
+          <ul class="list-disc pl-5 text-muted-foreground">
+            @for (item of categories[selectedIdx].points; track $index) {
+            <li>{{ item }}</li>
+            }
+          </ul>
+        </div> -->
+      </div>
+
+      <div class="flex flex-col">
+        <h4 class="text-md font-semibold text-neon-cyan mb-3">Rubrics (Total: 50 Marks)</h4>
+        <ul class="space-y-3 text-muted-foreground">
+          @for (rubric of categories[selectedIdx].rubrics; track $index) {
+          <li>
+            <strong class="text-foreground">{{ rubric.title }} ({{ rubric.marks }} Marks):</strong>
+            <ul class="pl-4 list-disc mt-1">
+              @for (sub of rubric.subpoints; track $index) {
+              <li>{{ sub }}</li>
+              }
+            </ul>
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-2">
+      <button (click)="visible = false">Close</button>
+    </div>
+  </p-dialog>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+    @for (category of categories; track $index) {
+    <div
+      class="category-card group relative overflow-hidden flex flex-col items-center"
+      (click)="category.expanded = !category.expanded"
+    >
+      <div class="icon text-4xl mb-4">{{ category.icon }}</div>
+      <h3 class="text-xl font-semibold mb-2 gradient-text">{{ category.title }}</h3>
+      <p class="text-sm text-muted-foreground mb-4 grow">{{ category.description }}</p>
+
+      <!-- Toggle Problem Statements -->
+      <button
+        class="px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-purple text-black rounded-lg font-medium text-sm hover:scale-105 transition-transform duration-300 mb-2"
+        (click)="showDialog($index)"
+      >
+        View Problem Statements
+      </button>
+
+      <!-- <div
+        class="problem-list text-left text-sm space-y-2 transition-all duration-500 overflow-hidden w-full"
+        [style.maxHeight]="category.expanded ? '400px' : '0'"
+      >
+        <ul class="list-disc pl-5 text-muted-foreground">
+          @for (item of category.points; track $index) {
+          <li>{{ item }}</li>
+          }
+        </ul>
+      </div> -->
+
+      <!-- Toggle Rubrics -->
+      <!-- <button
+        class="px-4 py-2 bg-gradient-to-r from-neon-purple to-neon-cyan text-black rounded-lg font-medium text-sm hover:scale-105 transition-transform duration-300 mt-4"
+        (click)="showDialog($index)"
+      >
+        View Evaluation Rubrics
+      </button> -->
+
+      <!-- Rubrics Section -->
+      <!-- <div
+        class="rubric-list mt-4 text-left text-sm transition-all duration-500 overflow-hidden w-full rounded-lg bg-black/20 backdrop-blur-lg border border-white/10"
+        [style.maxHeight]="category.showRubrics ? '800px' : '0'"
+        [style.padding]="category.showRubrics ? '16px' : '0'"
+      >
+        <h4 class="text-md font-semibold text-neon-cyan mb-3">Rubrics (Total: 50 Marks)</h4>
+        <ul class="space-y-3 text-muted-foreground">
+          @for (rubric of category.rubrics; track $index) {
+          <li>
+            <strong class="text-foreground">{{ rubric.title }} ({{ rubric.marks }} Marks):</strong>
+            <ul class="pl-4 list-disc mt-1">
+              @for (sub of rubric.subpoints; track $index) {
+              <li>{{ sub }}</li>
+              }
+            </ul>
+          </li>
+          }
+        </ul>
+      </div> -->
+    </div>
+    }
+  </div>
+</section>

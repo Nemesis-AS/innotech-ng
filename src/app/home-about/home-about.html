@@ -1,0 +1,100 @@
+<section id="about-section" class="py-24 px-4 bg-gradient-to-b from-background to-background/50">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-6xl font-bold gradient-text mb-4">About Innotech</h2>
+      <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+        Where innovation meets opportunity and the future takes shape
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left Side - Abstract Illustration -->
+      <div class="relative">
+        <div class="glass-card p-8 relative overflow-hidden">
+          <!-- Abstract tech elements -->
+          <div class="absolute inset-0 opacity-20">
+            <div
+              class="absolute top-4 left-4 w-16 h-16 border-2 border-neon-cyan rounded-full animate-float"
+            ></div>
+            <div
+              class="absolute top-8 right-8 w-12 h-12 border-2 border-neon-purple rotate-45 animate-float"
+              style="animation-delay: 1s"
+            ></div>
+            <div
+              class="absolute bottom-8 left-12 w-20 h-2 bg-gradient-neon rounded-full animate-glow-pulse"
+            ></div>
+            <div
+              class="absolute bottom-12 right-4 w-8 h-8 bg-neon-pink/30 rounded-full animate-float"
+              style="animation-delay: 2s"
+            ></div>
+          </div>
+
+          <!-- Main content -->
+          <div class="relative z-10 text-center">
+            <div class="text-6xl mb-4">🚀</div>
+            <h3 class="text-2xl font-bold text-neon-cyan mb-4">Innovation Hub</h3>
+            <p class="text-muted-foreground">
+              A convergence of brilliant minds, cutting-edge technology, and limitless possibilities
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-4 mt-8">
+          @for (feature of features; track feature.title) {
+          <div
+            class="flex items-center gap-4 p-4 glass-panel rounded-lg hover:bg-glass/90 transition-all duration-300"
+          >
+            <span class="text-2xl">{{ feature.icon }}</span>
+            <div>
+              <h4 class="font-semibold text-foreground">{{ feature.title }}</h4>
+              <p class="text-sm text-muted-foreground">{{ feature.desc }}</p>
+            </div>
+          </div>
+          }
+        </div>
+
+        <!-- Floating elements -->
+        <div
+          class="absolute -top-4 -left-4 w-24 h-24 glass-panel rounded-full opacity-30 animate-float"
+        ></div>
+        <div
+          class="absolute -bottom-4 -right-4 w-32 h-16 glass-panel opacity-20 animate-float"
+          style="animation-delay: 1.5s"
+        ></div>
+      </div>
+
+      <!-- Right Side - Content -->
+      <div class="space-y-8">
+        <div class="glass-card">
+          <h3 class="text-2xl font-bold text-neon-purple mb-4">Experience the Future</h3>
+          <p class="text-muted-foreground leading-relaxed mb-6">
+            Innotech 2025 is more than just a tech fest - it's a launchpad for innovation, a
+            networking powerhouse, and a celebration of technological excellence. Join hundreds of
+            brilliant minds as we explore the frontiers of AI, robotics, web development, and
+            emerging technologies.
+          </p>
+          <p class="text-muted-foreground leading-relaxed">
+            From competitive coding challenges to innovative project showcases, from expert
+            workshops to industry mentorship - Innotech offers an immersive experience that bridges
+            the gap between academic learning and real-world application.
+          </p>
+        </div>
+
+        <!-- Counter Cards -->
+        <div class="grid grid-cols-3 gap-4">
+          @for (counter of counters; track counter.label) {
+          <div
+            class="glass-card text-center group hover:scale-105 transition-transform duration-300"
+          >
+            <div class="text-3xl font-bold mb-2 animate-counter" [class]="'text-' + counter.color">
+              {{ counter.value }}{{ counter.suffix }}
+            </div>
+            <div class="text-sm text-muted-foreground">{{ counter.label }}</div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

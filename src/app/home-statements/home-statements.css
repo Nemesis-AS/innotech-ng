@@ -1,0 +1,31 @@
+.category-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.08);
+  position: relative;
+}
+
+.category-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.3), 0 0 50px rgba(255, 0, 255, 0.2);
+}
+
+.category-card .icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover .icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.problem-list {
+  transition: max-height 0.5s ease-in-out;
+}

@@ -1,0 +1,160 @@
+<div
+  class="max-w-lg mx-auto mt-12 p-8 rounded-2xl bg-white/10 backdrop-blur-lg shadow-xl border border-white/20 text-white"
+>
+  <h2 class="text-2xl font-bold text-center mb-6">Student Registration</h2>
+
+  <!-- ✅ KIET Selection -->
+  @if (!showForm) {
+  <div class="mb-6">
+    <label class="block text-lg font-semibold mb-2">Are you from KIET?</label>
+    <p-select
+      [options]="[
+        { label: 'Yes', value: 'yes' },
+        { label: 'No', value: 'no' }
+      ]"
+      placeholder="Select an option"
+      (onChange)="onKietChange($event)"
+      class="w-full"
+    ></p-select>
+  </div>
+  }
+
+  <!-- ✅ Loader -->
+  @if(loading) {
+  <div class="text-center text-blue-300 mb-4">Fetching your data from KIET servers...</div>
+  }
+
+  <!-- Roll number field -->
+  @if (isKiet === true) {
+  <form [formGroup]="studentForm" (submit)="onRollSearch()" class="mb-8">
+    <div>
+      <label class="block font-medium mb-1">KIET Roll Number</label>
+      <input
+        pInputText
+        formControlName="roll"
+        class="w-full rounded-md p-2 bg-white/20 border border-white/30"
+      />
+      @if (studentForm.get('roll')?.touched && studentForm.get('roll')?.invalid) {
+      <p class="text-red-300 text-sm">Enter a valid roll number</p>
+      }
+    </div>
+    <button
+      class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-2 rounded-md font-semibold hover:from-blue-600 hover:to-cyan-500"
+    >
+      Search
+    </button>
+  </form>
+
+  }
+
+  <!-- ✅ Form Section -->
+  @if (showForm && !loading) {
+  <form [formGroup]="studentForm" class="space-y-5" (ngSubmit)="submit()">
+    <div>
+      <label class="block font-medium mb-1">Name</label>
+      <input
+        pInputText
+        formControlName="name"
+        class="w-full rounded-md p-2 bg-white/20 border border-white/30 focus:outline-none"
+      />
+      @if (studentForm.get('name')?.touched && studentForm.get('name')?.invalid) {
+      <p class="text-red-300 text-sm">Name is required</p>
+      }
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Email</label>
+      <input
+        pInputText
+        formControlName="email"
+        class="w-full rounded-md p-2 bg-white/20 border border-white/30"
+      />
+      @if (studentForm.get('email')?.touched && studentForm.get('email')?.invalid) {
+      <p class="text-red-300 text-sm">Enter a valid email</p>
+      }
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Phone Number</label>
+      <input
+        pInputText
+        formControlName="phone"
+        class="w-full rounded-md p-2 bg-white/20 border border-white/30"
+      />
+      @if (studentForm.get('phone')?.touched && studentForm.get('phone')?.invalid) {
+      <p class="text-red-300 text-sm">Enter a valid 10-digit phone number</p>
+      }
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">College</label>
+      <input
+        pInputText
+        formControlName="college"
+        class="w-full rounded-md p-2 bg-white/20 border border-white/30"
+      />
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Course</label>
+      <p-select
+        [options]="courses"
+        formControlName="course"
+        placeholder="Select Course"
+        class="w-full"
+      ></p-select>
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Branch</label>
+      <p-select
+        [options]="branches"
+        formControlName="branch"
+        placeholder="Select Branch"
+        class="w-full"
+      ></p-select>
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Year</label>
+      <input
+        pInputText
+        formControlName="year"
+        class="w-full rounded-md p-2 bg-white/20 border border-white/30"
+      />
+    </div>
+
+    <div>
+      <label class="block font-medium mb-1">Roll Number</label>
+      <input
+        pInputText
+        formControlName="roll"
+        class="w-full rounded-md p-2 bg-white/20 border border-white/30"
+      />
+    </div>
+
+    <!-- ✅ College ID Upload (Only if Not KIET) -->
+    @if (!isKiet) {
+    <div>
+      <label class="block font-medium mb-1">Upload College ID</label>
+      <p-fileUpload
+        mode="basic"
+        name="collegeId"
+        formControlName="collegeId"
+        chooseLabel="Upload ID"
+        class="w-full bg-blue-500 text-white rounded-md"
+      ></p-fileUpload>
+    </div>
+    }
+
+    <button
+      pButton
+      type="submit"
+      label="Submit"
+      class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-2 rounded-md font-semibold hover:from-blue-600 hover:to-cyan-500"
+    >
+      Submit
+    </button>
+  </form>
+  }
+</div>

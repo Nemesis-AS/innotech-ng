@@ -1,0 +1,18 @@
+.timeline-item {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.timeline-item.opacity-100 {
+  opacity: 1;
+}
+.timeline-item.translate-y-0 {
+  transform: translateY(0);
+}
+
+.glass-card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px) scale(1.03);
+}

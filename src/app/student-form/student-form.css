@@ -1,0 +1,41 @@
+.glass-container {
+  width: 500px;
+  margin: 50px auto;
+  padding: 2rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.title {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.form-section label {
+  color: #fff;
+  font-weight: 500;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+:host ::ng-deep .p-dropdown,
+:host ::ng-deep .p-inputtext {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+:host ::ng-deep .p-button {
+  width: 100%;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border: none;
+  color: white;
+  font-weight: bold;
+}

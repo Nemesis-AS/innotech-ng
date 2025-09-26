@@ -1,0 +1,119 @@
+<section class="py-24 px-4 bg-gradient-to-b from-background to-background/50">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-6xl font-bold gradient-text mb-4">Prizes & Perks</h2>
+      <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+        Compete for amazing prizes, recognition, and career opportunities
+      </p>
+    </div>
+
+    <!-- Main Prizes -->
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      @for (prize of prizes; track prize.place) {
+      <div class="prize-card">
+        <div
+          class="glass-card text-center group hover:scale-105 transition-all duration-500 relative overflow-hidden"
+          [class]="prize.glow"
+        >
+          <!-- Background Effect -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br to-transparent opacity-50"
+            [class]="'from-' + prize.color + '/10'"
+          ></div>
+
+          <!-- Content -->
+          <div class="relative z-10">
+            <!-- Place Badge -->
+            <div
+              class="inline-block px-4 py-2 rounded-full text-sm font-bold mb-4 border"
+              [class]="
+                'bg-' + prize.color + '/20 text-' + prize.color + ' border-' + prize.color + '/30'
+              "
+            >
+              {{ prize.place }} Place
+            </div>
+
+            <!-- Icon & Title -->
+            <div class="text-6xl mb-4">{{ prize.icon }}</div>
+            <h3 class="text-2xl font-bold text-foreground mb-2">
+              {{ prize.title }}
+            </h3>
+
+            <!-- Amount -->
+            <div class="text-4xl font-bold mb-6" [class]="'text-' + prize.color">
+              {{ prize.amount }}
+            </div>
+
+            <!-- Perks List -->
+            <div class="space-y-3">
+              @for (perk of prize.perks; track perk) {
+              <div class="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                <span class="w-2 h-2 bg-primary rounded-full"></span>
+                {{ perk }}
+              </div>
+              }
+            </div>
+
+            <!-- Action Button -->
+            <button
+              class="mt-6 w-full py-2 px-4 rounded-lg font-medium border transition-all duration-300"
+              [class]="
+                'border-' +
+                prize.color +
+                '/30 text-' +
+                prize.color +
+                ' hover:bg-' +
+                prize.color +
+                '/10'
+              "
+            >
+              View Details
+            </button>
+          </div>
+
+          <!-- Decorative Elements -->
+          <div
+            class="absolute -top-2 -right-2 w-16 h-16 bg-gradient-to-br from-primary/20 to-transparent rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"
+          ></div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Special Awards -->
+    <div class="glass-card">
+      <h3 class="text-2xl font-bold text-center text-neon-purple mb-8">
+        Special Recognition Awards
+      </h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (perk of specialPerks; track perk.title) {
+        <div
+          class="text-center p-4 glass-panel rounded-lg hover:bg-glass/90 transition-all duration-300 group"
+        >
+          <div class="text-3xl mb-3 group-hover:animate-float">{{ perk.icon }}</div>
+          <h4 class="font-semibold text-foreground mb-2">
+            {{ perk.title }}
+          </h4>
+          <p class="text-sm text-muted-foreground">{{ perk.desc }}</p>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Additional Benefits -->
+    <div class="mt-16 text-center">
+      <div class="glass-card max-w-3xl mx-auto">
+        <h3 class="text-xl font-semibold mb-4 text-neon-cyan">🌟 All Participants Receive</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+          @for (benefit of additionalBenefits; track benefit) {
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-neon-cyan rounded-full text-white"></span>
+            {{ benefit }}
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
