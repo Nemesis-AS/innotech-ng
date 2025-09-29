@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home-hero',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './home-hero.html',
   styleUrl: './home-hero.css',
 })
@@ -11,9 +12,9 @@ export class HomeHero {
 
   stats = [
     { number: '500+', label: 'Participants' },
-    { number: '15', label: 'Events' },
-    { number: '₹5L', label: 'Prize Pool' },
-    { number: '3', label: 'Days' },
+    { number: '7', label: 'Categories' },
+    { number: '₹4L+', label: 'Prize Pool' },
+    { number: '200+', label: 'Awards' },
   ];
 
   particles = Array.from({ length: 20 }, (_, i) => ({

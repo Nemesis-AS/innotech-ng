@@ -27,10 +27,7 @@ export class StudentForm {
     value: b,
   }));
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
-    // const user = JSON.parse(localStorage.getItem("INNOTECH_USER_DATA")!);
-    // console.log(user.uid);
-  }
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit() {
     this.studentForm = this.fb.group({
@@ -88,9 +85,6 @@ export class StudentForm {
     }
 
     const user = JSON.parse(localStorage.getItem("INNOTECH_USER_DATA")!);
-    console.log(user.user.uid);
-
-    console.log('Form Submitted:', this.studentForm.getRawValue());
 
     const userData = {
       ...this.studentForm.getRawValue(),

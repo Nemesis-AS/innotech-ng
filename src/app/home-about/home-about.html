@@ -1,6 +1,5 @@
 <section id="about-section" class="py-24 px-4 bg-gradient-to-b from-background to-background/50">
   <div class="max-w-7xl mx-auto">
-    <!-- Section Header -->
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-6xl font-bold gradient-text mb-4">About Innotech</h2>
       <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -8,10 +7,10 @@
       </p>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="grid lg:grid-cols-2 gap-16">
       <!-- Left Side - Abstract Illustration -->
       <div class="relative">
-        <div class="glass-card p-8 relative overflow-hidden">
+        <div class="glass-card p-8 relative overflow-hidden h-full flex items-center justify-center">
           <!-- Abstract tech elements -->
           <div class="absolute inset-0 opacity-20">
             <div
@@ -40,20 +39,6 @@
           </div>
         </div>
 
-        <div class="space-y-4 mt-8">
-          @for (feature of features; track feature.title) {
-          <div
-            class="flex items-center gap-4 p-4 glass-panel rounded-lg hover:bg-glass/90 transition-all duration-300"
-          >
-            <span class="text-2xl">{{ feature.icon }}</span>
-            <div>
-              <h4 class="font-semibold text-foreground">{{ feature.title }}</h4>
-              <p class="text-sm text-muted-foreground">{{ feature.desc }}</p>
-            </div>
-          </div>
-          }
-        </div>
-
         <!-- Floating elements -->
         <div
           class="absolute -top-4 -left-4 w-24 h-24 glass-panel rounded-full opacity-30 animate-float"
@@ -80,21 +65,21 @@
             the gap between academic learning and real-world application.
           </p>
         </div>
+      </div>
+    </div>
 
-        <!-- Counter Cards -->
-        <div class="grid grid-cols-3 gap-4">
-          @for (counter of counters; track counter.label) {
-          <div
-            class="glass-card text-center group hover:scale-105 transition-transform duration-300"
-          >
-            <div class="text-3xl font-bold mb-2 animate-counter" [class]="'text-' + counter.color">
-              {{ counter.value }}{{ counter.suffix }}
-            </div>
-            <div class="text-sm text-muted-foreground">{{ counter.label }}</div>
-          </div>
-          }
+    <div class="grid md:grid-cols-3 gap-4 mt-12">
+      @for (feature of features; track feature.title) {
+      <div
+        class="flex flex-col items-center gap-4 p-4 glass-panel rounded-lg hover:bg-glass/90 transition-all duration-300"
+      >
+        <span class="text-2xl">{{ feature.icon }}</span>
+        <div>
+          <h4 class="font-semibold text-center text-foreground text-lg">{{ feature.title }}</h4>
+          <p class="text-sm text-center text-muted-foreground">{{ feature.desc }}</p>
         </div>
       </div>
+      }
     </div>
   </div>
 </section>

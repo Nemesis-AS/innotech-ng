@@ -1,21 +1,29 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { Dialog } from "primeng/dialog";
 
 @Component({
   selector: 'app-home-timeline',
   templateUrl: './home-timeline.html',
+  imports: [RouterLink, Dialog],
   styleUrl: './home-timeline.css',
 })
 export class HomeTimeline implements OnInit {
   visibleItems: number[] = [];
   isVisible: boolean[] = [];
   scrollProgress: number = 0;
+  visible: boolean = false;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   timelineEvents = [
     {
       date: 'October 1',
       title: 'Registrations Open',
       time: '9:00 AM',
-      description: 'Registration for Innotech 25 opens. Participants can sign up for competitions, workshops, and events.',
+      description:
+        'Registration for Innotech 25 opens. Participants can sign up for competitions, workshops, and events.',
       icon: '🚀',
       color: 'neon-cyan',
     },
@@ -23,7 +31,8 @@ export class HomeTimeline implements OnInit {
       date: 'October 20',
       title: 'Registrations Close',
       time: '11:59 PM',
-      description: 'Final deadline to register. Ensure your team and event selections are submitted before midnight.',
+      description:
+        'Final deadline to register. Ensure your team and event selections are submitted before midnight.',
       icon: '💻',
       color: 'neon-purple',
     },
@@ -42,17 +51,21 @@ export class HomeTimeline implements OnInit {
       description: 'Final round of the event. Showcase your projects & compete to win!',
       icon: '📊',
       color: 'neon-cyan',
-    }
+    },
   ];
 
   ngOnInit() {
     this.isVisible = new Array(this.timelineEvents.length).fill(false);
-    this.onScroll();
+    // only call onScroll when running in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.onScroll();
+    }
   }
 
   @HostListener('window:scroll', [])
   onScroll() {
-    if (!document) return;
+    // protect against server-side rendering where `document`/`window` are undefined
+    if (typeof document === 'undefined' || typeof window === 'undefined') return;
 
     const timelineItems = document.querySelectorAll('.timeline-item');
     const windowHeight = window.innerHeight;
@@ -67,5 +80,13 @@ export class HomeTimeline implements OnInit {
     const scrollTop = window.scrollY;
     const docHeight = document.body.scrollHeight - window.innerHeight;
     this.scrollProgress = Math.min(100, (scrollTop / docHeight) * 100);
+  }
+
+  openDialog() {
+    this.visible = true;
+  }
+
+  closeDialog() {
+    this.visible = false;
   }
 }

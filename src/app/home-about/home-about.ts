@@ -32,7 +32,7 @@ export class HomeAbout {
       suffix: '+',
       color: 'neon-cyan',
     },
-    { value: 2, label: 'Events', suffix: '', color: 'neon-purple' },
+    { value: 4, label: 'Prize pool', suffix: 'Lacs', color: 'neon-purple' },
     { value: 5, label: 'Years', suffix: '', color: 'neon-pink' },
   ];
 }

@@ -1,0 +1,193 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black text-gray-100 p-10">
+  <div class="max-w-5xl mx-auto p-10 glass-container">
+    <h2 class="text-4xl font-extrabold mb-10 text-center text-indigo-300 tracking-tight">
+      🚀 Create Your Team
+    </h2>
+
+    <!-- ✅ FORM -->
+    @if (!previewMode) {
+    <form [formGroup]="makeTeamForm" class="space-y-10">
+      <!-- 🏷 Team Info -->
+      <div class="glass-section">
+        <h3 class="section-title">📛 Team Information</h3>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="label">Team Name</label>
+            <input
+              pInputText
+              formControlName="team_name"
+              placeholder="✨ Enter a creative team name"
+              class="w-full"
+            />
+          </div>
+
+          <div>
+            <label class="label">Department</label>
+            <input
+              pInputText
+              [value]="leader.department"
+              disabled
+              class="w-full opacity-70 cursor-not-allowed"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- 📂 Project Details -->
+      <div class="glass-section">
+        <h3 class="section-title">📂 Project Details</h3>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="label">Select Category</label>
+            <p-select
+              formControlName="category_id"
+              [options]="categories"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="-- Choose a Category --"
+              class="w-full"
+            >
+              <!-- (onChange)="onCategoryChange()" -->
+            </p-select>
+          </div>
+
+          <div>
+            <label class="label">Problem Statement</label>
+            <p-select
+              formControlName="problem_statement"
+              [options]="selectedProblems"
+              placeholder="-- Choose a Problem Statement --"
+              class="w-full"
+            >
+            </p-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 👥 Team Members -->
+      <div class="glass-section">
+        <h3 class="section-title">👥 Team Members</h3>
+
+        <ul class="space-y-3 mb-6">
+          @for (m of members; track $index) {
+          <li class="member-card">
+            <div>
+              <span class="font-semibold">{{ m.name }}</span>
+              <span class="text-gray-400 text-sm">({{ m.roll }}) - {{ m.branch }}</span>
+              @if ($index === 0) {
+              <span class="ml-2 px-2 py-1 text-xs bg-yellow-500/20 text-yellow-400 rounded-full"
+                >⭐ Leader</span
+              >
+              }
+            </div>
+            @if ($index !== 0) {
+            <button
+              pButton
+              type="button"
+              icon="pi pi-times"
+              class="p-button-danger p-button-rounded p-button-sm"
+            ></button>
+            <!-- (click)="removeMember($index)" -->
+            }
+          </li>
+          }
+        </ul>
+
+        <div class="flex gap-3">
+          <input
+            pInputText
+            #rollInput
+            placeholder="🔍 Enter roll number to add member"
+            class="flex-1"
+          />
+          <p-button type="button" label="Add" class="p-button-success" label="+ Add Memeber" />
+        </div>
+
+        @if (errorMsg) {
+        <div class="text-red-400 mt-3 text-sm flex items-center gap-2">❌ {{ errorMsg }}</div>
+        }
+      </div>
+
+      <!-- 📜 Rules & Guidelines -->
+      <div class="glass-section border-l-4 border-yellow-500">
+        <h3 class="section-title text-yellow-400">📜 Rules & Guidelines</h3>
+        <ul class="list-disc list-inside space-y-2 text-gray-300">
+          <li>✅ A team comprises of <strong>2 to 5 members</strong>.</li>
+          <li>🤝 Members <strong>can be from different courses and branches</strong>.</li>
+          <li>📂 A team <strong>can register for only one category</strong>.</li>
+          <li>🚫 A participant <strong>can be part of only one team</strong>.</li>
+          <li>🔒 Once registered, <strong>no modification</strong> is allowed.</li>
+          <li>
+            ⚠ If any member <strong>withdraws</strong>, the
+            <strong>team will be disqualified</strong>.
+          </li>
+          <li>💸 There is <strong>no registration fee</strong>.</li>
+          <li>📉 <strong>No reimbursement</strong> for project expenses.</li>
+        </ul>
+
+        <div class="mt-6 flex items-start gap-3">
+          <p-checkbox formControlName="acknowledged" binary="true"></p-checkbox>
+          <span class="text-sm text-gray-300"
+            >I have read and understood all the rules and agree to abide by them.</span
+          >
+        </div>
+        @if (makeTeamForm.get('acknowledged')?.invalid && submittedForm) {
+        <div class="text-red-400 text-sm mt-2">⚠ You must accept the rules before submitting.</div>
+        }
+      </div>
+
+      <!-- 📤 Submit -->
+      <div class="text-center pt-6">
+        <p-button
+          type="button"
+          label="Preview & Submit"
+          [disabled]="makeTeamForm.invalid"
+        ></p-button>
+        <!-- (click)="previewTeam()" -->
+      </div>
+    </form>
+    }
+
+    <!-- 📄 Preview Mode -->
+    @if (previewMode) {
+    <div class="animate-fadeIn">
+      <h3 class="text-3xl font-extrabold text-center text-indigo-300 mb-8">📄 Team Preview</h3>
+
+      <div class="glass-section max-w-2xl mx-auto">
+        <p class="text-lg"><strong>Team Name:</strong> {{ makeTeamForm.value.team_name }}</p>
+        <p class="text-lg"><strong>Category:</strong> {{ selectedCategoryName }}</p>
+        <p class="text-lg">
+          <strong>Problem Statement:</strong> {{ makeTeamForm.value.problem_statement }}
+        </p>
+        <p class="text-lg"><strong>Department:</strong> {{ leader.department }}</p>
+
+        <h4 class="mt-6 text-xl font-bold text-indigo-300">👥 Members</h4>
+        <ul class="mt-3 space-y-1">
+          @for (m of members; track $index) {
+          <li>
+            ✅ {{ m.name }} ({{ m.roll }}) - {{ m.branch }}
+            @if (m.uid === leader.uid) {
+            <span class="text-yellow-400">⭐ Leader</span>
+            }
+          </li>
+          }
+        </ul>
+      </div>
+
+      <div class="mt-8 flex justify-center gap-6">
+        <button
+          pButton
+          label="← Back"
+          icon="pi pi-arrow-left"
+          class="p-button-secondary"
+          (click)="previewMode = false"
+        ></button>
+        <p-button label="Submit Team" />
+        <!-- (click)="submitTeam()" -->
+      </div>
+    </div>
+    }
+  </div>
+</div>

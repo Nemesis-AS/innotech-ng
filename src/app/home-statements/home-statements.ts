@@ -11,7 +11,8 @@ export class HomeStatements {
   categories = [
     {
       title: 'Smart Solutions, Smarter Society',
-      description: 'E-projects focused on web, APIs, mobile apps, and AI tools for societal needs.',
+      description:
+        'E-projects focused on web, APIs, mobile apps, cyber security, bioinformatics, and support solutions for a smarter society.',
       icon: '🌐',
       expanded: false,
       showRubrics: false,
@@ -20,7 +21,7 @@ export class HomeStatements {
         'APIs, Utilities and Cyber Security Solutions',
         'Mobile Applications',
         'E-support and Chat-bots',
-        'AI Solutions',
+        'Bioinformatics and Healthcare',
       ],
       rubrics: [
         {
@@ -31,7 +32,7 @@ export class HomeStatements {
         {
           title: 'Innovation & Novelty',
           marks: 10,
-          subpoints: ['Originality of Project (5)', 'Employed Technology & AI Tools (5)'],
+          subpoints: ['Originality of Project (5)', 'Employed Technology & Tools (5)'],
         },
         {
           title: 'Relevance & Application',
@@ -48,18 +49,12 @@ export class HomeStatements {
     },
     {
       title: 'AI Solutions for Automation',
-      description: 'AI, Generative AI, and intelligent automation solutions.',
+      description:
+        'AI-based projects focusing on automation, agentic AI, and generative AI solutions.',
       icon: '🤖',
       expanded: false,
       showRubrics: false,
-      points: [
-        'AI Solutions',
-        'Agentic AI and Automation',
-        'Generative AI',
-        'AI supported solutions',
-        'Bioinformatics and Healthcare',
-        'NLP and Computer Vision',
-      ],
+      points: ['AI Support and AI Solutions', 'Agentic AI and Automation', 'Generative AI'],
       rubrics: [
         {
           title: 'Project Showcasing',
@@ -69,7 +64,7 @@ export class HomeStatements {
         {
           title: 'Innovation & Novelty',
           marks: 10,
-          subpoints: ['Originality of Project (5)', 'Employed Technology & AI Tools (5)'],
+          subpoints: ['Originality of Project (5)', 'Employed AI Techniques (5)'],
         },
         {
           title: 'Relevance & Application',
@@ -86,16 +81,18 @@ export class HomeStatements {
     },
     {
       title: 'Automation and Robotics',
-      description: 'IoT, sensor-based, and robotic solutions for real-world challenges.',
+      description:
+        'IoT, robotics, sensors, manufacturing, and computer vision projects for real-world automation.',
       icon: '🔧',
       expanded: false,
       showRubrics: false,
       points: [
-        'IoT based applications',
+        'IoT based application',
         'Robo-solutions',
         'IR and Sensor-based applications',
         'Manufacturing and AI Solutions',
-        'Image Processing and Automation',
+        'Image Processing and automation',
+        'NLP and Computer Vision',
       ],
       rubrics: [
         {
@@ -123,7 +120,8 @@ export class HomeStatements {
     },
     {
       title: 'From Concept to Reality',
-      description: 'Drone, EV, space, medical devices, and green energy projects.',
+      description:
+        'Projects transforming concepts into reality with drones, EVs, medical devices, space, and green energy.',
       icon: '🚀',
       expanded: false,
       showRubrics: false,
@@ -131,7 +129,7 @@ export class HomeStatements {
         'Drone Solutions',
         'Space Technology Solutions',
         'EV Solutions',
-        'Medical Devices',
+        'Medical devices',
         'Green Energy',
       ],
       rubrics: [
@@ -160,7 +158,8 @@ export class HomeStatements {
     },
     {
       title: 'Start Small, Scale Big, Sustain Always',
-      description: 'Start-up ideas, business models, and revenue generation solutions.',
+      description:
+        'Start-up ideas, productivity, and business models for sustainable economic growth.',
       icon: '💼',
       expanded: false,
       showRubrics: false,
@@ -197,12 +196,15 @@ export class HomeStatements {
       ],
     },
     {
-      title: 'GenZ Budding Engineers',
-      description: 'Innovative prototypes and solutions from first-year students.',
+      title: 'Gen Z to Budding Engineers',
+      description: 'Prototypes and innovative solutions exclusively from first-year students.',
       icon: '👩‍🎓',
       expanded: false,
       showRubrics: false,
-      points: ['Prototypes and solutions from First-year students only'],
+      points: [
+        'Prototypes and solutions from First year students only',
+        'Team restriction to all First year candidates',
+      ],
       rubrics: [
         {
           title: 'Concept Innovation',
@@ -225,15 +227,17 @@ export class HomeStatements {
     },
     {
       title: 'Creative Visions for a Sustainable Future',
-      description: 'Posters, models, and designs for social and environmental impact.',
+      description:
+        'Posters, models, and infrastructural designs with social, ethical, and environmental focus.',
       icon: '🌱',
       expanded: false,
       showRubrics: false,
       points: [
-        'Ideas for civic sense and ethics',
-        'Infrastructural Designs',
+        'Ideas for better Civic sense and Moral Values',
+        'Ideas and activities to support the humanity and ethics',
+        'Infrastructural Designs (Classrooms, Homes, Building, Smart cities, Automobile, EV etc.)',
         'Society & Environmental Solutions',
-        'Idea submissions without software/hardware support',
+        'Ideas submission: Idea without Software or Hardware support',
       ],
       rubrics: [
         {

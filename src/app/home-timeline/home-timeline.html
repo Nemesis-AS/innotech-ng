@@ -1,9 +1,5 @@
-<section class="py-24 px-4 bg-gradient-to-b from-background/50 to-background">
+<section class="py-24 px-4 bg-gradient-to-b from-background/50 to-background" id="timeline">
   <div class="max-w-5xl mx-auto">
-
-    <!-- 📊 Horizontal Progress Bar -->
-
-    <!-- Section Header -->
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-6xl font-bold gradient-text mb-4">Event Timeline</h2>
       <p class="text-xl text-muted-foreground">
@@ -100,12 +96,112 @@
         <p class="text-muted-foreground text-sm mb-4">
           Don't miss out on this incredible journey of innovation and learning
         </p>
-        <button
-          class="w-full bg-neon-cyan text-black cursor-pointer py-2 px-4 rounded-lg font-medium hover:scale-105 transition-transform duration-300 shadow-glow"
-        >
-          Register Now
-        </button>
+
+        <div class="flex flex-col gap-4">
+          <a
+            routerLink="/login"
+            class="w-full bg-neon-cyan text-black cursor-pointer py-2 px-4 rounded-lg font-medium hover:scale-105 transition-transform duration-300 shadow-glow"
+          >
+            Register Now
+          </a>
+
+          <button
+            (click)="openDialog()"
+            class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition"
+          >
+            How to Participate
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [dismissableMask]="true"
+  [style]="{ width: '70vw', maxWidth: '900px' }"
+  header="🚀 How to Participate in INNOTECH 2025"
+  [breakpoints]="{ '960px': '90vw', '640px': '95vw' }"
+  (onHide)="closeDialog()"
+>
+  <div class="space-y-8 text-white leading-relaxed px-4 py-4">
+    <section
+      class="backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-lg hover:shadow-xl transition"
+    >
+      <h2 class="text-2xl font-bold text-cyan-200 mb-2">1️⃣ Registration & Login</h2>
+      <p>
+        Sign in using your <strong>college email ID</strong> via Firebase Authentication. Once
+        logged in, you’ll be redirected to the registration form.
+      </p>
+    </section>
+
+    <section
+      class="bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-lg hover:shadow-xl transition"
+    >
+      <h2 class="text-2xl font-bold text-cyan-200 mb-2">2️⃣ Individual Registration</h2>
+      <p class="mb-2">Every student must register individually before forming a team.</p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>
+          <strong>KIET Students:</strong> Enter your roll number. Your details will auto-fill.
+          Verify and submit.
+        </li>
+        <li>
+          <strong>Other Colleges:</strong> Fill the form manually and upload a valid ID
+          (Aadhaar/College ID).
+        </li>
+      </ul>
+    </section>
+
+    <section
+      class="bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-lg hover:shadow-xl transition"
+    >
+      <h2 class="text-2xl font-bold text-cyan-200 mb-2">3️⃣ Team Formation</h2>
+      <p>Once registered, you can create a team:</p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>Click <strong>“Make Team”</strong> – you become the <strong>Team Leader</strong>.</li>
+        <li>Choose a <strong>Category</strong> and a <strong>Problem Statement</strong>.</li>
+        <li>Add 2–5 members by searching their <strong>Student Identifier</strong>.</li>
+      </ul>
+    </section>
+
+    <section
+      class="bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-lg hover:shadow-xl transition"
+    >
+      <h2 class="text-2xl font-bold text-cyan-200 mb-2">4️⃣ Hackathon Flow</h2>
+      <p>Teams compete in two stages:</p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>
+          <strong>Department Level:</strong> 3 judges evaluate your project (50 marks). Top teams
+          qualify for the institute level.
+        </li>
+        <li><strong>Institute Level:</strong> Another set of 3 judges evaluate the finalists.</li>
+      </ul>
+    </section>
+
+    <section
+      class="bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-lg hover:shadow-xl transition"
+    >
+      <h2 class="text-2xl font-bold text-cyan-200 mb-2">📊 Judging Criteria</h2>
+      <p>Total of <strong>50 marks</strong> based on:</p>
+      <ul class="grid md:grid-cols-2 gap-2 list-disc pl-6 space-y-1">
+        <li>Innovation & Originality</li>
+        <li>Technical Implementation</li>
+        <li>Relevance & Social Impact</li>
+        <li>Scalability & Future Scope</li>
+        <li>Presentation & Query Handling</li>
+      </ul>
+    </section>
+
+    <section class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-lg">
+      <h2 class="text-xl font-semibold text-indigo-700 mb-2">💡 Tips for Success</h2>
+      <ul class="list-disc pl-6 space-y-1 text-black">
+        <li>Complete <strong>individual registration</strong> before forming a team.</li>
+        <li>Pick a category that aligns with your project.</li>
+        <li>Keep your project demo clear and impactful.</li>
+        <li>Focus on <strong>innovation</strong> and <strong>real-world impact</strong>.</li>
+      </ul>
+    </section>
+  </div>
+</p-dialog>

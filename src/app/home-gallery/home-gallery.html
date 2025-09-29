@@ -1,1 +1,12 @@
-<p>home-gallery works!</p>
+<section class="py-16 px-6 bg-gradient-to-b from-[#0a0f1f] to-[#111827]" id="gallery">
+  <h1 class="text-4xl md:text-5xl font-extrabold text-center neon-text mb-12 pb-2">
+    ✨ Innotech Highlights
+  </h1>
+
+  <div class="masonry-grid max-w-6xl mx-auto">
+    @for (img of images; track $index) {
+    <div class="glass-card hover:scale-[1.02] transition-transform duration-300 aspect-video bg-cover" [style.backgroundImage]="`url('${img}')`">
+    </div>
+    }
+  </div>
+</section>

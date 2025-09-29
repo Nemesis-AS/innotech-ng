@@ -22,3 +22,46 @@ h4 {
 ul li strong {
   color: #ffffff;
 }
+
+.domain-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+  position: relative;
+}
+
+.domain-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.4),
+    rgba(255, 0, 255, 0.4),
+    rgba(0, 255, 255, 0.4)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.domain-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.25), 0 0 50px rgba(255, 0, 255, 0.15);
+}
+
+.domain-card .icon {
+  transition: transform 0.3s ease;
+}
+
+.domain-card:hover .icon {
+  transform: rotate(10deg) scale(1.2);
+}

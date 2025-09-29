@@ -1,0 +1,78 @@
+<section class="contact-section" id="contact">
+  <div class="glass-card text-center">
+    <h1 class="text-4xl font-bold mb-2">Contact Us</h1>
+    <p class="text-lg text-gray-200 mb-6">
+      Get in touch with the Innotech 2025 organizing team for any queries or assistance.
+    </p>
+
+    <button
+      pButton
+      type="button"
+      icon="pi pi-envelope"
+      label="Contact Us"
+      class="p-button-rounded p-button-lg contact-btn cursor-pointer"
+      (click)="showDialog()"
+    >
+      View Details
+    </button>
+  </div>
+</section>
+
+<!-- PrimeNG Dialog -->
+<p-dialog
+  header="Innotech 2025 - Organizing Committee"
+  [(visible)]="visible"
+  [modal]="true"
+  [dismissableMask]="true"
+>
+  <div class="contact-popup space-y-6">
+    <div class="text-center mb-4">
+      <p class="text-lg font-semibold text-cyan-400">📧 Email us at:</p>
+      <a href="mailto:innotech@kiet.edu" class="text-xl font-bold text-cyan-400 hover:underline"
+        >innotech@kiet.edu</a
+      >
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 w-full max-w-2xl">
+      <div class="contact-person">
+        <h3 class="text-xl font-semibold">Dr. Manish Bhardwaj</h3>
+        <p class="text-gray-100">Planning & Implementation Head</p>
+        <p class="text-gray-200 pt-2 font-medium">
+          <a href="tel:+919457966671" class="text-cyan-400" aria-label="Call Dr. Manish Bhardwaj"
+            >📞 +91 94579 66671</a
+          >
+        </p>
+      </div>
+
+      <div class="contact-person">
+        <h3 class="text-xl font-semibold">Dr. Rohit Vashisht</h3>
+        <p class="text-gray-100">Executive Head</p>
+        <p class="text-gray-200 pt-2 font-medium">
+          <a href="tel:+918800959638" class="text-cyan-400" aria-label="Call Dr. Rohit Vashisht"
+            >📞 +91 88009 59638</a
+          >
+        </p>
+      </div>
+
+      <div class="contact-person">
+        <h3 class="text-xl font-semibold">Dr. Ashima Arya</h3>
+        <p class="text-gray-100">Media and Promotion Head</p>
+        <p class="text-gray-200 pt-2 font-medium">
+          <a href="tel:+919416558700" class="text-cyan-400" aria-label="Call Dr. Ashima Arya"
+            >📞 +91 94165 58700</a
+          >
+        </p>
+      </div>
+
+      <div class="contact-person">
+        <h3 class="text-xl font-semibold">Mr. Abhishek Tyagi</h3>
+        <p class="text-gray-100">Website Coordinator</p>
+        <p class="text-gray-200 pt-2 font-medium">
+          <a href="tel:+918755899420" class="text-cyan-400" aria-label="Call Mr. Abhishek Tyagi"
+            >📞 +91 87558 99420</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</p-dialog>
