@@ -35,6 +35,7 @@
 
 .member-card {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background: rgba(17, 24, 39, 0.7);
@@ -46,4 +47,10 @@
 
 .member-card:hover {
   background: rgba(31, 41, 55, 0.9);
+}
+
+@media (min-width: 640px) {
+  .member-card {
+    flex-direction: row;
+  }
 }

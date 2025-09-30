@@ -1,18 +1,21 @@
 <header class="fixed inset-x-0 top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div
-      class="backdrop-blur-md bg-white/20 dark:bg-gray-900/30 border border-white/10 dark:border-gray-800/20 rounded-2xl shadow-sm px-4 py-4 mt-4 mb-4 flex items-center justify-between gap-4"
+      class="backdrop-blur-md bg-white/20 dark:bg-gray-900/30 border border-white/10 dark:border-gray-800/20 rounded-2xl shadow-sm px-4 py-4 mt-4 mb-4 flex items-center justify-between"
     >
+      <!-- Logo -->
       <div class="flex items-center gap-3">
-        <a href="#top"
-          ><img
-            src="https://res.cloudinary.com/dbugu6aej/image/upload/v1759128744/KIET_LOGO_tiizw3.png"
+        <a href="#top">
+          <img
+            src="https://res.cloudinary.com/dbugu6aej/image/upload/v1759212918/WhatsApp_Image_2025-09-29_at_17.09.22_c2d95f16_zafojm.jpg"
             alt="logo"
-            class="h-10"
-        /></a>
+            class="h-12"
+          />
+        </a>
       </div>
 
-      <nav class="ml-auto flex items-center gap-3">
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-3 ml-auto">
         @for (link of links; track $index) {
         <a
           [href]="link.href"
@@ -20,10 +23,7 @@
         >
           {{ link.label }}
         </a>
-        }
-
-        <!-- optional CTA button -->
-        @if (isLoggedIn) {
+        } @if (isLoggedIn) {
         <a
           href="/view-team"
           class="ml-2 px-4 py-2 rounded-md text-sm font-semibold bg-purple-500 border border-purple-700 hover:bg-purple-600/30 transition"
@@ -39,6 +39,51 @@
         </a>
         }
       </nav>
+
+      <!-- Mobile menu button -->
+      <button class="md:hidden p-2 rounded-lg hover:bg-white/10" (click)="toggleMenu()">
+        <svg
+          class="h-6 w-6 text-gray-800 dark:text-gray-100"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
     </div>
+
+    <!-- Mobile nav dropdown -->
+    @if (menuOpen) {
+    <div
+      class="md:hidden mt-2 backdrop-blur-md bg-white/20 dark:bg-gray-900/30 border border-white/10 dark:border-gray-800/20 rounded-2xl shadow-sm px-4 py-4"
+    >
+      <div class="flex flex-col gap-2">
+        @for (link of links; track $index) {
+        <a
+          [href]="link.href"
+          class="px-3 py-2 rounded-lg text-base font-medium transition hover:bg-white/10 text-gray-800 dark:text-gray-100/90"
+        >
+          {{ link.label }}
+        </a>
+        } @if (isLoggedIn) {
+        <a
+          href="/view-team"
+          class="mt-2 px-4 py-2 rounded-md text-sm font-semibold bg-purple-500 border border-purple-700 hover:bg-purple-600/30 transition text-center"
+        >
+          My Team
+        </a>
+        } @if(!isLoggedIn) {
+        <a
+          href="/login"
+          class="mt-2 px-4 py-2 rounded-md text-sm font-semibold bg-purple-500 border border-purple-700 hover:bg-purple-600/30 transition text-center"
+        >
+          Register Now
+        </a>
+        }
+      </div>
+    </div>
+    }
   </div>
 </header>

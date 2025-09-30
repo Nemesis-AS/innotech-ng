@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { HomeHowTo } from '../home-how-to/home-how-to';
 
 @Component({
   selector: 'app-home-header',
@@ -8,10 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './home-header.css',
 })
 export class HomeHeader {
-  logoSrc?: string =
-    'https://res.cloudinary.com/dbugu6aej/image/upload/v1759128744/KIET_LOGO_tiizw3.png';
-  title: string = 'Innotech 25';
-  subtitle: string = 'Innotech 25';
+  menuOpen = false;
+
   links: { label: string; href: string }[] = [
     { label: 'Categories', href: '#categories' },
     { label: 'Timeline', href: '#timeline' },
@@ -27,5 +24,9 @@ export class HomeHeader {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('INNOTECH_USER_DATA')) {
       this.isLoggedIn = true;
     }
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 }

@@ -51,3 +51,12 @@
   transform: translateY(-4px);
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
 }
+
+@media (max-width: 640px) {
+  .glass-section {
+    padding: 1.25rem;
+  }
+  .member-card {
+    padding: 1rem;
+  }
+}

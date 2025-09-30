@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
-import { HomeHeader } from "../home-header/home-header";
+// import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-team-pofile-page',
-  imports: [TitleCasePipe, HomeHeader],
+  //imports: [TitleCasePipe],
   templateUrl: './team-pofile-page.html',
   styleUrl: './team-pofile-page.css',
 })
@@ -51,4 +50,8 @@ export class TeamPofilePage {
       role_in_team: 'Member',
     },
   ];
+
+  constructor() {
+    // Check if user is logged in & part of a team, else redirect to given step
+  }
 }

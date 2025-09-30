@@ -32,7 +32,7 @@
         >
           <!-- Event Card -->
           <div
-            class="w-full max-w-md"
+            class="w-full max-w-md z-50"
             [class]="{ 'pr-8': $index % 2 === 0, 'pl-8': $index % 2 !== 0 }"
           >
             <div
@@ -76,7 +76,7 @@
 
           <!-- Timeline Connector -->
           <div
-            class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-2 bg-background shadow-lg transition-all duration-500 scale-110"
+            class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-2 bg-background shadow-lg transition-all duration-500 scale-110 z-10"
             [class]="'border-' + event.color + ' shadow-[0_0_20px_var(--' + event.color + ')]'"
           >
             <div

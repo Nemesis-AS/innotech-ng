@@ -5,6 +5,7 @@ import { SelectModule } from 'primeng/select';
 import { FileUploadModule } from 'primeng/fileupload';
 
 import { ApiService } from '../api-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-form',
@@ -22,12 +23,15 @@ export class StudentForm {
   currentUser: any = null;
 
   courses = ['B.TECH', 'B.PHARMA', 'M.TECH', 'MCA', 'MBA'].map((c) => ({ label: c, value: c }));
-  branches = ['CSE', 'IT', 'CSE(AI/ML)', 'CSE(AI)', 'CSIT', 'CS', 'ECE', 'EE'].map((b) => ({
+  branches = ['CSE', 'IT', 'CSE(AI/ML)', 'CSE(AI)', 'CSIT', 'CS', 'ECE', 'EE', 'B.PHARMA', 'MCA', 'MBA'].map((b) => ({
     label: b,
     value: b,
   }));
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
+    // Check if team is already made, if yes, redirect
+    // If user exists in DB, redirect to next step
+  }
 
   ngOnInit() {
     this.studentForm = this.fb.group({

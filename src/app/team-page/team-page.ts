@@ -46,18 +46,20 @@ export class TeamPage /* implements OnInit */ {
   previewMode = false;
   errorMsg = '';
 
-  constructor(private fb: FormBuilder, private teamService: MakeTeamService) {}
+  constructor(private fb: FormBuilder, private teamService: MakeTeamService) {
+    // Check if user is logged in & not part of a team
+  }
 
   selectedProblems: string[] = [];
   selectedCategoryName: string = '';
 
-  // onCategoryChange() {
-  //   const selectedId = this.makeTeamForm.value.category_id;
-  //   const category = this.categories.find((c) => c.id == selectedId);
+  onCategoryChange() {
+    const selectedId = this.makeTeamForm.value.category_id;
+    const category = this.categories.find((c) => c.id == selectedId);
 
-  //   this.selectedProblems = category ? category.problems : [];
-  //   this.selectedCategoryName = category ? category.name : '';
-  // }
+    this.selectedProblems = category ? category.problems : [];
+    this.selectedCategoryName = category ? category.name : '';
+  }
 
   ngOnInit() {
     this.makeTeamForm = this.fb.group({
@@ -75,57 +77,57 @@ export class TeamPage /* implements OnInit */ {
     return this.makeTeamForm.get('members') as FormArray;
   }
 
-  // addMemberByRoll(roll: string) {
-  //   if (!roll) return;
+  addMemberByRoll(roll: string) {
+    if (!roll) return;
 
-  //   this.teamService.getStudentByRoll(roll).subscribe((student) => {
-  //     if (!student) {
-  //       this.errorMsg = '❌ No student found with this roll number.';
-  //       return;
-  //     }
-  //     if (this.members.some((m) => m.uid === student.uid)) {
-  //       this.errorMsg = '⚠️ This student is already in the team.';
-  //       return;
-  //     }
-  //     if (this.members.length >= 5) {
-  //       this.errorMsg = '🚫 Max 5 members allowed.';
-  //       return;
-  //     }
+    this.teamService.getStudentByRoll(roll).subscribe((student) => {
+      if (!student) {
+        this.errorMsg = '❌ No student found with this roll number.';
+        return;
+      }
+      if (this.members.some((m) => m.uid === student.uid)) {
+        this.errorMsg = '⚠️ This student is already in the team.';
+        return;
+      }
+      if (this.members.length >= 5) {
+        this.errorMsg = '🚫 Max 5 members allowed.';
+        return;
+      }
 
-  //     this.members.push(student);
-  //     this.errorMsg = '';
-  //   });
-  // }
+      this.members.push(student);
+      this.errorMsg = '';
+    });
+  }
 
-  // removeMember(index: number) {
-  //   if (index === 0) return; // Leader can't be removed
-  //   this.members.splice(index, 1);
-  // }
+  removeMember(index: number) {
+    if (index === 0) return; // Leader can't be removed
+    this.members.splice(index, 1);
+  }
 
-  // previewTeam() {
-  //   if (this.members.length < 2) {
-  //     this.errorMsg = '👥 Minimum 2 members required.';
-  //     return;
-  //   }
-  //   this.previewMode = true;
-  // }
+  previewTeam() {
+    if (this.members.length < 2) {
+      this.errorMsg = '👥 Minimum 2 members required.';
+      return;
+    }
+    this.previewMode = true;
+  }
 
-  // submitTeam() {
-  //   const payload = {
-  //     team_name: this.makeTeamForm.value.team_name,
-  //     category_id: this.makeTeamForm.value.category_id,
-  //     problem_statement: this.makeTeamForm.value.problem_statement,
-  //     department: this.leader.department,
-  //     leader_id: this.leader,
-  //     members: this.members,
-  //     team_size: this.members.length,
-  //   };
+  submitTeam() {
+    const payload = {
+      team_name: this.makeTeamForm.value.team_name,
+      category_id: this.makeTeamForm.value.category_id,
+      problem_statement: this.makeTeamForm.value.problem_statement,
+      department: this.leader.department,
+      leader_id: this.leader,
+      members: this.members,
+      team_size: this.members.length,
+    };
 
-  //   this.teamService.submitTeam(payload).subscribe((res) => {
-  //     alert(res.message);
-  //     this.makeTeamForm.reset();
-  //     this.members = [this.leader];
-  //     this.previewMode = false;
-  //   });
-  // }
+    this.teamService.submitTeam(payload).subscribe((res) => {
+      alert(res.message);
+      this.makeTeamForm.reset();
+      this.members = [this.leader];
+      this.previewMode = false;
+    });
+  }
 }
