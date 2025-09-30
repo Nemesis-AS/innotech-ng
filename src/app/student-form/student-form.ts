@@ -23,7 +23,28 @@ export class StudentForm {
   currentUser: any = null;
 
   courses = ['B.TECH', 'B.PHARMA', 'M.TECH', 'MCA', 'MBA'].map((c) => ({ label: c, value: c }));
-  branches = ['CSE', 'IT', 'CSE(AI/ML)', 'CSE(AI)', 'CSIT', 'CS', 'ECE', 'EE', 'B.PHARMA', 'MCA', 'MBA'].map((b) => ({
+  branches = [
+    'CSE',
+    'IT',
+    'CSE(AIML)',
+    'CSE(AI)',
+    'CSIT',
+    'CS',
+    'ECE',
+    'EE',
+    'AMIA',
+    'CSE(CS)',
+    'CSE(DS)',
+    'EEE',
+    'ENCE',
+    'ECE(VLSI)',
+    'ME',
+    'B.PHARMA',
+    'MCA',
+    'MBA',
+    'M.PHARMA',
+    'DPharma',
+  ].map((b) => ({
     label: b,
     value: b,
   }));
@@ -31,6 +52,31 @@ export class StudentForm {
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     // Check if team is already made, if yes, redirect
     // If user exists in DB, redirect to next step
+    if (typeof localStorage !== 'undefined') {
+      if (!localStorage.getItem('INNOTECH_USER_DATA')) {
+        this.router.navigateByUrl('/login');
+        return;
+      }
+
+      const uid = JSON.parse(localStorage.getItem('INNOTECH_USER_DATA')!).user.uid;
+      if (!uid) {
+        this.router.navigateByUrl('/student');
+        return;
+      }
+
+      this.apiService.isRegistered(uid).subscribe((res) => {
+        if (res) {
+          this.apiService.isInTeam(uid).subscribe((isInTeam) => {
+            if (isInTeam) {
+              this.router.navigateByUrl('/view-team');
+              // return;
+            } else {
+              this.router.navigateByUrl('/team');
+            }
+          });
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -88,16 +134,19 @@ export class StudentForm {
       return;
     }
 
-    const user = JSON.parse(localStorage.getItem("INNOTECH_USER_DATA")!);
+    const user = JSON.parse(localStorage.getItem('INNOTECH_USER_DATA')!);
 
     const userData = {
       ...this.studentForm.getRawValue(),
       rollnumber: this.studentForm.getRawValue().roll,
-      firebase_uid: user.user.uid
+      firebase_uid: user.user.uid,
     };
 
-    this.apiService.submitStudent(userData).subscribe(res => {
+    this.apiService.submitStudent(userData).subscribe((res) => {
       console.log(res);
+      if (res.success) {
+        this.router.navigateByUrl('/team');
+      }
     });
   }
 }

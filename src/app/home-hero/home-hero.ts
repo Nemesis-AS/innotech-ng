@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ApiService } from '../api-service';
 
 @Component({
   selector: 'app-home-hero',
@@ -12,7 +13,8 @@ export class HomeHero {
 
   stats = [
     { number: '500+', label: 'Participants' },
-    { number: '7', label: 'Categories' },
+    { number: '100+', label: 'Teams' },
+    // { number: '7', label: 'Categories' },
     { number: '₹4L+', label: 'Prize Pool' },
     { number: '200+', label: 'Awards' },
   ];
@@ -23,4 +25,11 @@ export class HomeHero {
     top: `${Math.random() * 100}%`,
     delay: `${Math.random() * 3}s`,
   }));
+
+  constructor(private apiService: ApiService) {
+    this.apiService.getStats().subscribe(stats => {
+      this.stats[0].number = `${stats.totalParticipants}+`;
+      this.stats[1].number = `${stats.totalTeams}+`;
+    });
+  }
 }

@@ -6,27 +6,45 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class MakeTeamService {
-  checkRollUrl: string = 'https://muskily-multifid-tova.ngrok-free.dev/check-roll';
-  firebaseUidUrl: string = 'https://muskily-multifid-tova.ngrok-free.dev/check-uid';
+  rootUrl: string = "http://64.227.131.109:5000";
+
+  checkRollUrl: string = `${this.rootUrl}/check-roll`;
+  firebaseUidUrl: string = `${this.rootUrl}/uid`;
+  rollNoUrl: string = `${this.rootUrl}/rollno`;
+  submitTeamUrl: string = `${this.rootUrl}/teams`;
 
   constructor(private http: HttpClient) {}
 
   getStudentByRoll(roll: string): Observable<any> {
-    const mockStudents = [
-      { uid: 'uid_2', name: 'Priya Singh', roll: '2200290110023', branch: 'EEE' },
-      { uid: 'uid_3', name: 'Aman Verma', roll: '2200290110042', branch: 'ME' },
-      { uid: 'uid_4', name: 'Neha Gupta', roll: '2200290110088', branch: 'IT' },
-    ];
-
-    return this.http.post<any>(this.checkRollUrl, { rollnumber: roll });
+    return this.http.get<any>(this.rollNoUrl + '?rollno=' + roll, { headers: {"ngrok-skip-browser-warning": "1"} });
   }
 
   getStudentByFirebaseUid(uid: string) {
-    return this.http.post<any>(this.firebaseUidUrl, { uid });
+    return this.http.get<any>(this.firebaseUidUrl + '?uid=' + uid, { headers: {"ngrok-skip-browser-warning": "1"} });
   }
 
   submitTeam(payload: any): Observable<any> {
-    console.log('Submitted team:', payload);
+    // const team = {
+    //   team_name:
+    //   leader: {
+    //     uid:
+    //     name:
+    //     rollnumber:
+    //     branch
+    //   },
+    //   members: [],
+    //   team_size: interface,
+    //   category_id:
+    //   category_name:
+    //   problem_statement:
+    //   department:
+    // }
+
+    this.http.post<any>(this.submitTeamUrl, payload).subscribe(res => {
+      if (res.success) {
+        console.log('Submitted team:', res);
+      }
+    });
     return of({ message: 'Team created successfully!' });
   }
 }

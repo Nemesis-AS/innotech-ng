@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MakeTeamService } from '../make-team-service';
 import { Select } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Button } from "primeng/button";
+import { Button } from 'primeng/button';
+import { ApiService } from '../api-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-team-page',
@@ -15,7 +17,7 @@ import { Button } from "primeng/button";
 export class TeamPage /* implements OnInit */ {
   makeTeamForm!: FormGroup;
   leader = {
-    uid: 'uid_1',
+    firebase_uid: 'uid_1',
     name: 'Rohit Sharma',
     roll: '2200290110079',
     branch: 'Computer Science',
@@ -46,8 +48,39 @@ export class TeamPage /* implements OnInit */ {
   previewMode = false;
   errorMsg = '';
 
-  constructor(private fb: FormBuilder, private teamService: MakeTeamService) {
+  constructor(
+    private fb: FormBuilder,
+    private teamService: MakeTeamService,
+    private apiService: ApiService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {
     // Check if user is logged in & not part of a team
+    if (typeof localStorage !== 'undefined') {
+      if (!localStorage.getItem('INNOTECH_USER_DATA')) {
+        this.router.navigateByUrl('/login');
+        return;
+      }
+
+      const uid = JSON.parse(localStorage.getItem('INNOTECH_USER_DATA')!).user.uid;
+      if (!uid) {
+        this.router.navigateByUrl('/student');
+        return;
+      }
+
+      this.apiService.isInTeam(uid).subscribe((isInTeam) => {
+        if (isInTeam) {
+          this.router.navigateByUrl('/view-team');
+          return;
+        }
+      });
+
+      // this.apiService.getStudentByFirebaseUid(uid).subscribe((student) => {
+      //   console.log(student);
+      //   this.leader = student.data;
+      //   console.log(this.leader);
+      // });
+    }
   }
 
   selectedProblems: string[] = [];
@@ -63,14 +96,31 @@ export class TeamPage /* implements OnInit */ {
 
   ngOnInit() {
     this.makeTeamForm = this.fb.group({
-      team_name: [''],
-      category_id: [''],
-      problem_statement: [''],
-      acknowledged: [false, Validators.requiredTrue], // ✅ new field
+      team_name: ['', Validators.required],
+      category_id: ['', Validators.required],
+      problem_statement: ['', Validators.required],
+      acknowledged: [false, Validators.requiredTrue],
     });
 
     // Add leader as first member
-    this.members.push(this.leader);
+    if (typeof localStorage !== 'undefined') {
+      const uid = JSON.parse(localStorage.getItem('INNOTECH_USER_DATA')!).user.uid;
+      this.apiService.getStudentByFirebaseUid(uid).subscribe((student) => {
+        console.log(student);
+        this.leader = student.data;
+        console.log(this.leader);
+        this.members.push(this.leader);
+
+        // this.makeTeamForm = this.fb.group({
+        //   team_name: ['', Validators.required],
+        //   category_id: ['', Validators.required],
+        //   problem_statement: ['', Validators.required],
+        //   acknowledged: [false, Validators.requiredTrue],
+        // });
+
+        this.cdr.markForCheck();
+      });
+    }
   }
 
   get membersArray() {
@@ -80,12 +130,14 @@ export class TeamPage /* implements OnInit */ {
   addMemberByRoll(roll: string) {
     if (!roll) return;
 
-    this.teamService.getStudentByRoll(roll).subscribe((student) => {
+    this.teamService.getStudentByRoll(roll).subscribe((data) => {
+      const student = data.data;
       if (!student) {
         this.errorMsg = '❌ No student found with this roll number.';
         return;
       }
-      if (this.members.some((m) => m.uid === student.uid)) {
+
+      if (this.members.some((m) => m.firebase_uid == student.firebase_uid)) {
         this.errorMsg = '⚠️ This student is already in the team.';
         return;
       }
@@ -94,8 +146,19 @@ export class TeamPage /* implements OnInit */ {
         return;
       }
 
-      this.members.push(student);
+      if (student.team_id != null) {
+        this.errorMsg = 'Student is already in another team!';
+        return;
+      }
+
+      // this.members.push(student);
+      // this.makeTeamForm.patchValue({
+      //   members: this.members
+      // });
+
+      this.members = [...this.members, student];
       this.errorMsg = '';
+      this.cdr.detectChanges();
     });
   }
 
@@ -116,18 +179,20 @@ export class TeamPage /* implements OnInit */ {
     const payload = {
       team_name: this.makeTeamForm.value.team_name,
       category_id: this.makeTeamForm.value.category_id,
+      category_name: this.categories[this.makeTeamForm.value.category_id].name,
       problem_statement: this.makeTeamForm.value.problem_statement,
-      department: this.leader.department,
-      leader_id: this.leader,
-      members: this.members,
+      department: this.leader.branch,
+      leader: { ...this.leader, uid: this.leader.firebase_uid },
+      members: this.members.slice(1).map((mem) => ({ ...mem, uid: mem.firebase_uid })),
       team_size: this.members.length,
     };
 
     this.teamService.submitTeam(payload).subscribe((res) => {
-      alert(res.message);
       this.makeTeamForm.reset();
       this.members = [this.leader];
       this.previewMode = false;
+
+      this.router.navigateByUrl('/view-team');
     });
   }
 }

@@ -13,6 +13,10 @@
       <h3 class="section-title">📛 Team Information</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
+          <p class="label">Team ID</p>
+          <p class="value text-base sm:text-lg md:text-xl">{{ team.team_id }}</p>
+        </div>
+        <div>
           <p class="label">Team Name</p>
           <p class="value text-base sm:text-lg md:text-xl">{{ team.team_name }}</p>
         </div>
@@ -22,7 +26,10 @@
         </div>
         <div>
           <p class="label">Category</p>
-          <p class="value text-base sm:text-lg md:text-xl">{{ team.category_name }}</p>
+          <!-- If you want category name, you’ll need a lookup -->
+          <p class="value text-base sm:text-lg md:text-xl">
+            {{ team.category_id }}
+          </p>
         </div>
         <div>
           <p class="label">Problem Statement</p>
@@ -35,27 +42,37 @@
     <div class="glass-section">
       <h3 class="section-title">👤 Team Members</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        @for (m of members; track $index) {
+        <!-- Leader -->
         <div class="member-card p-4 sm:p-5 rounded-2xl">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
-            <h4 class="text-lg sm:text-xl font-semibold text-indigo-300">{{ m.name }}</h4>
-            @if (m.role_in_team === "Leader") {
+            <h4 class="text-lg sm:text-xl font-semibold text-indigo-300">
+              {{ team.leader.name }}
+            </h4>
             <span
               class="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-yellow-500/20 text-yellow-400 rounded-full self-start sm:self-auto"
               >⭐ Leader</span
             >
-            }
           </div>
           <p class="text-gray-300 text-sm sm:text-base">
-            <strong>Roll No:</strong> {{ m.student_identifier }}
+            <strong>Roll No:</strong> {{ team.leader.rollnumber }}
+          </p>
+          <p class="text-gray-300 text-sm sm:text-base">
+            <strong>Branch:</strong> {{ team.leader.branch }}
+          </p>
+        </div>
+
+        <!-- Other members -->
+        @for (m of team.members; track $index) {
+        <div class="member-card p-4 sm:p-5 rounded-2xl">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
+            <h4 class="text-lg sm:text-xl font-semibold text-indigo-300">
+              {{ m.name }}
+            </h4>
+          </div>
+          <p class="text-gray-300 text-sm sm:text-base">
+            <strong>Roll No:</strong> {{ m.rollnumber }}
           </p>
           <p class="text-gray-300 text-sm sm:text-base"><strong>Branch:</strong> {{ m.branch }}</p>
-          <p class="text-gray-300 text-sm sm:text-base"><strong>Year:</strong> {{ m.year }}</p>
-          <p class="text-gray-300 text-sm sm:text-base">
-            <strong>College:</strong> {{ m.college }}
-          </p>
-          <p class="text-gray-300 text-sm sm:text-base"><strong>Email:</strong> {{ m.email }}</p>
-          <p class="text-gray-300 text-sm sm:text-base"><strong>Phone:</strong> {{ m.phone }}</p>
         </div>
         }
       </div>
