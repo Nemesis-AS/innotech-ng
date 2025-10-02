@@ -15,8 +15,8 @@ export class HomeHero {
     { number: '500+', label: 'Participants' },
     { number: '100+', label: 'Teams' },
     // { number: '7', label: 'Categories' },
-    { number: '₹4L+', label: 'Prize Pool' },
-    { number: '200+', label: 'Awards' },
+    { number: '₹3L+', label: 'Prize Pool' },
+    { number: '100+', label: 'Awards' },
   ];
 
   particles = Array.from({ length: 20 }, (_, i) => ({
@@ -26,8 +26,10 @@ export class HomeHero {
     delay: `${Math.random() * 3}s`,
   }));
 
-  constructor(private apiService: ApiService) {
-    this.apiService.getStats().subscribe(stats => {
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.apiService.getStats().subscribe((stats) => {
       this.stats[0].number = `${stats.totalParticipants}+`;
       this.stats[1].number = `${stats.totalTeams}+`;
     });

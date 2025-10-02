@@ -107,12 +107,27 @@ export class StudentForm {
       this.apiService.checkRoll(roll).subscribe((res) => {
         const data = res.data;
 
+        const romanToInt = (r: string): number | null => {
+          const map: Record<string, number> = { I: 1, II: 2, III: 3, IV: 4 };
+          return map[r] ?? null;
+        };
+
+        if (data && typeof data.year === 'string') {
+          const norm = data.year.trim().toUpperCase();
+          const asRoman = romanToInt(norm);
+          if (asRoman !== null) {
+            data.year = asRoman;
+          } else if (/^\d+$/.test(norm)) {
+            data.year = parseInt(norm, 10);
+          }
+        }
+
         this.studentForm.patchValue({
           name: data.name,
           email: data.email,
           phone: data.phone,
           college: 'KIET Group of Institutions',
-          course: data.course,
+          course: data.course.toUpperCase(),
           branch: data.branch,
           year: data.year,
           roll: roll,
@@ -120,10 +135,10 @@ export class StudentForm {
 
         this.studentForm.disable();
         this.showForm = true;
+        this.loading = false;
       });
     } catch (err) {
       console.error('Error fetching data:', err);
-    } finally {
       this.loading = false;
     }
   }

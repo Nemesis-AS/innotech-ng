@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class MakeTeamService {
-  rootUrl: string = "http://64.227.131.109:5000";
+  rootUrl: string = "https://innotech.kiet.edu/api";
 
   checkRollUrl: string = `${this.rootUrl}/check-roll`;
   firebaseUidUrl: string = `${this.rootUrl}/uid`;

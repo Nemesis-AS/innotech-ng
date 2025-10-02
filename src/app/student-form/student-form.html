@@ -39,12 +39,13 @@
       }
     </div>
     <button
-      class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-2 rounded-md font-semibold hover:from-blue-600 hover:to-cyan-500"
+      class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-2 rounded-md font-semibold hover:from-blue-600 hover:to-cyan-500 disabled:from-gray-700 disabled:to-gray-700 cursor-pointer disabled:cursor-default"
+      type="submit"
+      [disabled]="loading"
     >
       Search
     </button>
   </form>
-
   }
 
   <!-- ✅ Form Section -->
@@ -151,7 +152,8 @@
       pButton
       type="submit"
       label="Submit"
-      class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-2 rounded-md font-semibold hover:from-blue-600 hover:to-cyan-500"
+      class="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-2 rounded-md font-semibold hover:from-blue-600 hover:to-cyan-500 disabled:from-gray-800 disabled:to-gray-800 cursor-pointer disabled:cursor-default"
+      [disabled]="loading"
     >
       Submit
     </button>

@@ -6,7 +6,7 @@ import { map, Observable, switchMap } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  rootUrl: string = 'http://64.227.131.109:5000';
+  rootUrl: string = 'https://innotech.kiet.edu/api';
 
   checkRollUrl: string = `${this.rootUrl}/check-roll`;
   submitUserUrl: string = `${this.rootUrl}/participants`;
