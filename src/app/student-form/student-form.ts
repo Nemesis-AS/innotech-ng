@@ -22,32 +22,39 @@ export class StudentForm {
 
   currentUser: any = null;
 
-  courses = ['B.TECH', 'B.PHARMA', 'M.TECH', 'MCA', 'MBA'].map((c) => ({ label: c, value: c }));
+  courses = [
+    { label: 'Select a course', value: '' },
+    ...['B.TECH', 'B.PHARMA', 'M.TECH', 'MCA', 'MBA'].map((c) => ({ label: c, value: c })),
+  ];
   branches = [
-    'CSE',
-    'IT',
-    'CSE(AIML)',
-    'CSE(AI)',
-    'CSIT',
-    'CS',
-    'ECE',
-    'EE',
-    'AMIA',
-    'CSE(CS)',
-    'CSE(DS)',
-    'EEE',
-    'ENCE',
-    'ECE(VLSI)',
-    'ME',
-    'B.PHARMA',
-    'MCA',
-    'MBA',
-    'M.PHARMA',
-    'DPharma',
-  ].map((b) => ({
-    label: b,
-    value: b,
-  }));
+    { label: 'Select a branch', value: '' },
+    ...[
+      'CSE',
+      'IT',
+      'CSE(AIML)',
+      'CSE(AI)',
+      'CSIT',
+      'CS',
+      'ECE',
+      'EE',
+      'AMIA',
+      'CSE(CS)',
+      'CSE(DS)',
+      'EEE',
+      'ENCE',
+      'ECE(VLSI)',
+      'ME',
+      'B.PHARMA',
+      'MCA',
+      'MBA',
+      'M.PHARMA',
+      'DPharma',
+      'KSOP',
+    ].map((b) => ({
+      label: b,
+      value: b,
+    })),
+  ];
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     // Check if team is already made, if yes, redirect
@@ -89,7 +96,7 @@ export class StudentForm {
       branch: ['', Validators.required],
       year: ['', Validators.required],
       roll: ['', Validators.required],
-      collegeId: [''],
+      // collegeId: [''],
     });
   }
 
@@ -122,6 +129,34 @@ export class StudentForm {
           }
         }
 
+        // normalize branch and ensure it exists in the known branches; if not, use course
+        let branchRaw = (data.branch ?? '').toString().trim();
+        const branchExists = this.branches.some(
+          (b) => b.value.toString().trim().toUpperCase() === branchRaw.toUpperCase()
+        );
+        if (!branchExists) {
+          data.branch = (data.course ?? '').toString().trim().toUpperCase();
+        }
+
+        // map common full course names to short forms
+        const fullToShort: Record<string, string> = {
+          'master of business administration': 'MBA',
+          'master in computer applications': 'MCA',
+        };
+
+        // let branchRaw = (data.branch ?? '').toString().trim();
+        // remove parenthetical parts like "Master of Business Administration (MBA)"
+        branchRaw = branchRaw.replace(/\(.*\)/, '').trim();
+        const branchKey = branchRaw.toLowerCase();
+        // console.log(courseKey);
+
+        if (fullToShort[branchKey]) {
+          data.branch = fullToShort[branchKey];
+          data.course = fullToShort[branchKey];
+        } else {
+          data.course = branchRaw; // leave as-is; will be uppercased later when patching
+        }
+
         this.studentForm.patchValue({
           name: data.name,
           email: data.email,
@@ -133,7 +168,20 @@ export class StudentForm {
           roll: roll,
         });
 
-        this.studentForm.disable();
+        // Disable only controls that have non-null/non-empty values
+        Object.keys(this.studentForm.controls).forEach((key) => {
+          const control = this.studentForm.get(key);
+          const val = control?.value;
+          if (
+            val !== null &&
+            val !== undefined &&
+            !(typeof val === 'string' && val.trim() === '')
+          ) {
+            control!.disable();
+          } else {
+            control!.enable();
+          }
+        });
         this.showForm = true;
         this.loading = false;
       });
